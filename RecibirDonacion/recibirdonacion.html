@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donaciones</title>
+    <link rel="stylesheet" href="recibirdonacion.css">
+    <script src="https://kit.fontawesome.com/8ca6fcbba1.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <main>
+        <header>
+            <a href="/Inicio/inicio.html" class="icono">
+                <img src="/Imagenes/logo.png" alt="">
+                <h2>AccessPrint</h2>
+            </a>
+            <nav>
+                <a href="/QuienesSomos/quienes-somos.html">¿Quines somos?</a>
+                <a href="/Preguntas Frecuentes/preguntas-frecuentes.html">Preguntas frecuentes</a>
+            </nav>
+        </header>
+        <section class="formulario">
+            <h1>Formulario para recibir donación</h1>
+            <form action="form.php" method="POST">
+
+                <div class="coolinput">
+                    <label for="input" class="text">Nombre completo:</label>
+                    <input type="text" placeholder="Escriba aqui..." name="input" class="input">
+                </div>
+
+                <div class="coolinput">
+                    <label for="input" class="text">Email:</label>
+                    <input type="text" placeholder="Escriba aqui..." name="input" class="input">
+                </div>
+
+                <div class="coolinput">
+                    <label for="input" class="text">DNI:</label>
+                    <input type="text" placeholder="Escriba aqui..." name="input" class="input">
+                </div>
+
+                <div class="coolinput">
+                    <label for="input" class="text">Causa por la cual necesitas la donación:</label>
+                    <input type="text" placeholder="Escriba aqui..." name="input" class="input">
+                </div>
+                <h2 class="sec">Seleccione el tipo de donación:</h2>
+                <div class="nombre">
+
+                    <div class="container">
+                        <label>
+                            <input type="radio" name="radio" value="ropa">
+                            <span>Ropa</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio" value="alimentos">
+                            <span>Alimentos no perecederos</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio" value="dinero">
+                            <span>Dinero</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio" value="otros" id="otros-radio">
+                            <span>Otros</span>
+                        </label>
+                    </div>
+                    <div class="coolinput" id="other-input">
+                        <input type="text" placeholder="Especifica aqui..." name="input" class="input">
+                    </div>
+
+                </div>
+                <button>
+                    Enviar
+                </button>
+            </form>
+        </section>
+        
+    </main>
+    <footer>
+        <div>
+            <p>&copy; 2024 AccessPrint. Todos los derechos reservados.</p>
+        </div>
+        <div class="redes_sociales">
+            <a href=""><i class="fa-brands fa-youtube"></i></a>
+            <a href=""><i class="fa-brands fa-square-instagram"></i></a>
+            <a href=""><i class="fa-brands fa-github"></i></a>
+            <a href=""><i class="fa-brands fa-square-x-twitter"></i></a>
+        </div>
+    </footer>
+    <script src="recibirdonacion.js"></script>
+</body>
+
+</html>
