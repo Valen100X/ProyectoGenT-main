@@ -24,59 +24,44 @@
         </header>
         <section class="formulario">
             <h1>Formulario para realizar donación</h1>
-            <form action="form.php" method="POST">
-
-                <div class="coolinput">
-                    <label for="input" class="text">Nombre completo:</label>
-                    <input type="text" placeholder="Escriba aqui..." name="input" class="input">
+            <form id="donationForm">
+              <div class="coolinput">
+                <label for="nombre" class="text">Nombre completo:</label>
+                <input type="text" placeholder="Escriba aquí..." name="nombre" class="input">
+              </div>
+          
+              <div class="coolinput">
+                <label for="email" class="text">Email:</label>
+                <input type="email" placeholder="Escriba aquí..." name="email" class="input">
+              </div>
+          
+              <div class="coolinput">
+                <label for="dni" class="text">DNI:</label>
+                <input type="text" placeholder="Escriba aquí..." name="dni" class="input">
+              </div>
+          
+              <div class="coolinput">
+                <label for="causa" class="text">Causa por la cual deseas donar:</label>
+                <input type="text" placeholder="Escriba aquí..." name="causa" class="input">
+              </div>
+          
+              <h2 class="sec">Seleccione el tipo de donación:</h2>
+              <div class="nombre">
+                <div class="container">
+                  <label><input type="radio" name="tipoDonacion" value="ropa"><span>Ropa</span></label>
+                  <label><input type="radio" name="tipoDonacion" value="alimentos"><span>Alimentos no perecederos</span></label>
+                  <label><input type="radio" name="tipoDonacion" value="dinero"><span>Dinero</span></label>
+                  <label><input type="radio" name="tipoDonacion" value="otros" id="otros-radio"><span>Otros</span></label>
                 </div>
-
-                <div class="coolinput">
-                    <label for="input" class="text">Email:</label>
-                    <input type="text" placeholder="Escriba aqui..." name="input" class="input">
+                <div class="coolinput" id="other-input">
+                  <input type="text" placeholder="Especifica aquí..." name="otros" class="input">
                 </div>
-
-                <div class="coolinput">
-                    <label for="input" class="text">DNI:</label>
-                    <input type="text" placeholder="Escriba aqui..." name="input" class="input">
-                </div>
-
-                <div class="coolinput">
-                    <label for="input" class="text">Causa por la cual deseas donar:</label>
-                    <input type="text" placeholder="Escriba aqui..." name="input" class="input">
-                </div>
-                <h2 class="sec">Seleccione el tipo de donación:</h2>
-                <div class="nombre">
-
-                    <div class="container">
-                        <label>
-                            <input type="radio" name="radio" value="ropa">
-                            <span>Ropa</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="radio" value="alimentos">
-                            <span>Alimentos no perecederos</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="radio" value="dinero">
-                            <span>Dinero</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="radio" value="otros" id="otros-radio">
-                            <span>Otros</span>
-                        </label>
-                    </div>
-                    <div class="coolinput" id="other-input">
-                        <input type="text" placeholder="Especifica aqui..." name="input" class="input">
-                    </div>
-
-                </div>
-                <button>
-                    Enviar
-                </button>
+              </div>
+              <button type="submit">Enviar</button>
             </form>
-        </section>
-        
+          </section>
+          
+          
     </main>
     <footer>
         <div>
@@ -89,6 +74,35 @@
             <a href=""><i class="fa-brands fa-square-x-twitter"></i></a>
         </div>
     </footer>
+    <script>
+        const form = document.getElementById('donationForm');
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+      
+          const formData = new FormData(form);
+          const data = {
+            nombre: formData.get('nombre'),
+            email: formData.get('email'),
+            dni: formData.get('dni'),
+            causa: formData.get('causa'),
+            tipoDonacion: formData.get('tipoDonacion')
+          };
+      
+          const response = await fetch('/api/submitDonation', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          });
+      
+          if (response.ok) {
+            alert('¡Donación enviada con éxito!');
+          } else {
+            alert('Hubo un error al enviar la donación.');
+          }
+        });
+      </script>
     <script src="donacion.js"></script>
 </body>
 
