@@ -91,15 +91,15 @@
     <script>
         document.getElementById("donationForm").addEventListener("submit", function(e) {
   e.preventDefault();
-
+  
   const formData = {
     form: "formulario1",
-    nombre: document.querySelector('input[name="input"]:nth-of-type(1)').value,
-    email: document.querySelector('input[name="input"]:nth-of-type(2)').value,
-    dni: document.querySelector('input[name="input"]:nth-of-type(3)').value,
-    causa: document.querySelector('input[name="input"]:nth-of-type(4)').value,
-    tipo_donacion: document.querySelector('input[name="radio"]:checked').value,
-    otro_tipo_donacion: document.querySelector('input[name="input"]:nth-of-type(5)').value || ''
+    nombre: document.querySelector('input[name="nombre"]').value, // Asegúrate de que el campo tiene name="nombre"
+    email: document.querySelector('input[name="email"]').value,   // Asegúrate de que el campo tiene name="email"
+    dni: document.querySelector('input[name="dni"]').value,       // Asegúrate de que el campo tiene name="dni"
+    causa: document.querySelector('input[name="causa"]').value,   // Asegúrate de que el campo tiene name="causa"
+    tipo_donacion: document.querySelector('input[name="radio"]:checked').value, // Verifica que hay un radio seleccionado
+    otro_tipo_donacion: document.querySelector('input[name="otro_tipo_donacion"]')?.value || '' // Si el campo es opcional
   };
 
   fetch("https://script.google.com/a/macros/lasalleflorida.edu.ar/s/AKfycbxr5SFY2K1E_bifNlkm8v-ZqkNXKiHULtxVIZuzp_jkOTji21Rd3yDg2T7mqvwS600o/exec", {
