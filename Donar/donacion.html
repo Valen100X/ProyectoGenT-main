@@ -24,55 +24,55 @@
         </header>
         <section class="formulario">
             <h1>Formulario para realizar donación</h1>
-            <form id="donationForm">
-
+            <form id="donationForm" method="POST">
                 <div class="coolinput">
-                    <label for="input" class="text">Nombre completo:</label>
-                    <input type="text" placeholder="Escriba aqui..." name="input" class="input">
+                  <label for="nombre" class="text">Nombre completo:</label>
+                  <input type="text" name="nombre" placeholder="Escriba aqui..." class="input">
                 </div>
-
+                
                 <div class="coolinput">
-                    <label for="input" class="text">Email:</label>
-                    <input type="text" placeholder="Escriba aqui..." name="input" class="input">
+                  <label for="email" class="text">Email:</label>
+                  <input type="text" name="email" placeholder="Escriba aqui..." class="input">
                 </div>
-
+                
                 <div class="coolinput">
-                    <label for="input" class="text">DNI:</label>
-                    <input type="text" placeholder="Escriba aqui..." name="input" class="input">
+                  <label for="dni" class="text">DNI:</label>
+                  <input type="text" name="dni" placeholder="Escriba aqui..." class="input">
                 </div>
-
+                
                 <div class="coolinput">
-                    <label for="input" class="text">Causa por la cual deseas donar:</label>
-                    <input type="text" placeholder="Escriba aqui..." name="input" class="input">
+                  <label for="causa" class="text">Causa por la cual deseas donar:</label>
+                  <input type="text" name="causa" placeholder="Escriba aqui..." class="input">
                 </div>
+                
                 <h2 class="sec">Seleccione el tipo de donación:</h2>
                 <div class="nombre">
-
-                    <div class="container">
-                        <label>
-                            <input type="radio" name="radio" value="ropa">
-                            <span>Ropa</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="radio" value="alimentos">
-                            <span>Alimentos no perecederos</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="radio" value="dinero">
-                            <span>Dinero</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="radio" value="otros" id="otros-radio">
-                            <span>Otros</span>
-                        </label>
-                    </div>
-                    <div class="coolinput" id="other-input">
-                        <input type="text" placeholder="Especifica aqui..." name="input" class="input">
-                    </div>
-
+                  <div class="container">
+                    <label>
+                      <input type="radio" name="radio" value="ropa">
+                      <span>Ropa</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="radio" value="alimentos">
+                      <span>Alimentos no perecederos</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="radio" value="dinero">
+                      <span>Dinero</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="radio" value="otros" id="otros-radio">
+                      <span>Otros</span>
+                    </label>
+                  </div>
+                  <div class="coolinput" id="other-input">
+                    <input type="text" name="otro_tipo_donacion" placeholder="Especifica aqui..." class="input">
+                  </div>
                 </div>
+                
                 <button type="submit">Enviar</button>
-            </form>
+              </form>
+              
         </section>
         
     </main>
@@ -91,15 +91,24 @@
     <script>
         document.getElementById("donationForm").addEventListener("submit", function(e) {
   e.preventDefault();
+
+  // Usa querySelector para seleccionar los elementos con el nombre correcto
+  const nombre = document.querySelector('input[name="nombre"]');
+  const email = document.querySelector('input[name="email"]');
+  const dni = document.querySelector('input[name="dni"]');
+  const causa = document.querySelector('input[name="causa"]');
+  const tipo_donacion = document.querySelector('input[name="radio"]:checked');
+  const otro_tipo_donacion = document.querySelector('input[name="otro_tipo_donacion"]');
   
+  // Verifica si los elementos existen antes de acceder a su valor
   const formData = {
     form: "formulario1",
-    nombre: document.querySelector('input[name="nombre"]').value, // Asegúrate de que el campo tiene name="nombre"
-    email: document.querySelector('input[name="email"]').value,   // Asegúrate de que el campo tiene name="email"
-    dni: document.querySelector('input[name="dni"]').value,       // Asegúrate de que el campo tiene name="dni"
-    causa: document.querySelector('input[name="causa"]').value,   // Asegúrate de que el campo tiene name="causa"
-    tipo_donacion: document.querySelector('input[name="radio"]:checked').value, // Verifica que hay un radio seleccionado
-    otro_tipo_donacion: document.querySelector('input[name="otro_tipo_donacion"]')?.value || '' // Si el campo es opcional
+    nombre: nombre ? nombre.value : '',
+    email: email ? email.value : '',
+    dni: dni ? dni.value : '',
+    causa: causa ? causa.value : '',
+    tipo_donacion: tipo_donacion ? tipo_donacion.value : '', // Verifica que haya un radio seleccionado
+    otro_tipo_donacion: otro_tipo_donacion ? otro_tipo_donacion.value : '' // Si el campo es opcional
   };
 
   fetch("https://script.google.com/a/macros/lasalleflorida.edu.ar/s/AKfycbxr5SFY2K1E_bifNlkm8v-ZqkNXKiHULtxVIZuzp_jkOTji21Rd3yDg2T7mqvwS600o/exec", {
