@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donaciones</title>
+    <title>Recibir Donaciones</title>
     <link rel="stylesheet" href="recibirdonacion.css">
     <script src="https://kit.fontawesome.com/8ca6fcbba1.js" crossorigin="anonymous"></script>
-
 </head>
 
 <body>
@@ -18,64 +17,67 @@
                 <h2>AccessPrint</h2>
             </a>
             <nav>
-                <a href="../QuienesSomos/quienes-somos.html">¿Quines somos?</a>
-                <a href="../Preguntas Frecuentes/preguntas-frecuentes.html">Preguntas frecuentes</a>
+                <a href="../QuienesSomos/quienes-somos.html">¿Quiénes somos?</a>
+                <a href="../PreguntasFrecuentes/preguntas-frecuentes.html">Preguntas frecuentes</a>
             </nav>
         </header>
+
         <section class="formulario">
             <h1>Formulario para recibir donación</h1>
             <form id="receiveDonationForm">
 
                 <div class="coolinput">
-                    <label for="input" class="text">Nombre completo:</label>
-                    <input type="text" placeholder="Escriba aqui..." name="input" class="input">
+                    <label for="nombre" class="text">Nombre completo:</label>
+                    <input type="text" placeholder="Escriba aquí..." name="nombre" id="nombre" class="input">
                 </div>
 
                 <div class="coolinput">
-                    <label for="input" class="text">Email:</label>
-                    <input type="text" placeholder="Escriba aqui..." name="input" class="input">
+                    <label for="email" class="text">Email:</label>
+                    <input type="text" placeholder="Escriba aquí..." name="email" id="email" class="input">
                 </div>
 
                 <div class="coolinput">
-                    <label for="input" class="text">DNI:</label>
-                    <input type="text" placeholder="Escriba aqui..." name="input" class="input">
+                    <label for="dni" class="text">DNI:</label>
+                    <input type="text" placeholder="Escriba aquí..." name="dni" id="dni" class="input">
                 </div>
 
                 <div class="coolinput">
-                    <label for="input" class="text">Causa por la cual necesitas la donación:</label>
-                    <input type="text" placeholder="Escriba aqui..." name="input" class="input">
+                    <label for="causa" class="text">Causa por la cual necesitas la donación:</label>
+                    <input type="text" placeholder="Escriba aquí..." name="causa" id="causa" class="input">
                 </div>
+
                 <h2 class="sec">Seleccione el tipo de donación:</h2>
                 <div class="nombre">
 
                     <div class="container">
                         <label>
-                            <input type="radio" name="radio" value="ropa">
+                            <input type="radio" name="tipo_donacion" value="ropa">
                             <span>Ropa</span>
                         </label>
                         <label>
-                            <input type="radio" name="radio" value="alimentos">
+                            <input type="radio" name="tipo_donacion" value="alimentos">
                             <span>Alimentos no perecederos</span>
                         </label>
                         <label>
-                            <input type="radio" name="radio" value="dinero">
+                            <input type="radio" name="tipo_donacion" value="dinero">
                             <span>Dinero</span>
                         </label>
                         <label>
-                            <input type="radio" name="radio" value="otros" id="otros-radio">
+                            <input type="radio" name="tipo_donacion" value="otros" id="otros-radio">
                             <span>Otros</span>
                         </label>
                     </div>
-                    <div class="coolinput" id="other-input">
-                        <input type="text" placeholder="Especifica aqui..." name="input" class="input">
-                    </div>
 
+                    <div class="coolinput" id="other-input" style="display:none;">
+                        <input type="text" placeholder="Especifica aquí..." name="otro_tipo_donacion" id="otro_tipo_donacion" class="input">
+                    </div>
                 </div>
+
                 <button type="submit">Enviar</button>
             </form>
         </section>
-        
     </main>
+
     <footer>
         <div>
             <p>&copy; 2024 AccessPrint. Todos los derechos reservados.</p>
@@ -87,31 +89,8 @@
             <a href=""><i class="fa-brands fa-square-x-twitter"></i></a>
         </div>
     </footer>
+
     <script src="recibirdonacion.js"></script>
-    <script>
-        document.getElementById("receiveDonationForm").addEventListener("submit", function(e) {
-          e.preventDefault();
-      
-          const formData = {
-            form: "formulario2",
-            nombre: document.querySelector('input[name="input"]:nth-of-type(1)').value,
-            email: document.querySelector('input[name="input"]:nth-of-type(2)').value,
-            dni: document.querySelector('input[name="input"]:nth-of-type(3)').value,
-            causa: document.querySelector('input[name="input"]:nth-of-type(4)').value,
-            tipo_donacion: document.querySelector('input[name="radio"]:checked').value,
-            otro_tipo_donacion: document.querySelector('input[name="input"]:nth-of-type(5)').value || ''
-          };
-      
-          fetch("https://script.google.com/a/macros/lasalleflorida.edu.ar/s/AKfycbxr5SFY2K1E_bifNlkm8v-ZqkNXKiHULtxVIZuzp_jkOTji21Rd3yDg2T7mqvwS600o/exec", {
-            method: "POST",
-            body: JSON.stringify(formData),
-            headers: { "Content-Type": "application/json" }
-          })
-          .then(response => response.json())
-          .then(data => alert("Formulario enviado con éxito"))
-          .catch(error => console.error("Error:", error));
-        });
-      </script>
 </body>
 
 </html>

@@ -8,3 +8,44 @@ document.querySelectorAll('input[name="radio"]').forEach(radio => {
         }
     });
 });
+
+document.getElementById("donationForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    // Selecciona los elementos del formulario
+    const nombre = document.querySelector('input[name="nombre"]');
+    const email = document.querySelector('input[name="email"]');
+    const dni = document.querySelector('input[name="dni"]');
+    const causa = document.querySelector('input[name="causa"]');
+    const tipo_donacion = document.querySelector('input[name="radio"]:checked');
+    const otro_tipo_donacion = document.querySelector('input[name="otro_tipo_donacion"]');
+
+    // Verifica si los elementos existen antes de acceder a su valor
+    const formData = {
+        form: "formulario1",
+        nombre: nombre ? nombre.value : '',
+        email: email ? email.value : '',
+        dni: dni ? dni.value : '',
+        causa: causa ? causa.value : '',
+        tipo_donacion: tipo_donacion ? tipo_donacion.value : '', // Verifica que haya un radio seleccionado
+        otro_tipo_donacion: otro_tipo_donacion ? otro_tipo_donacion.value : '' // Si el campo es opcional
+    };
+
+    // Agregar un console.log para verificar los datos antes de enviarlos
+    console.log("Datos a enviar:", formData);
+
+    // Envia los datos a tu API en el servidor local
+    fetch("http://localhost:3000/donaciones", { // Cambié la URL a tu API local
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Respuesta del servidor:", data);
+        alert("Formulario enviado con éxito");
+    })
+    .catch(error => {
+        console.error("Error al enviar formulario:", error);
+    });
+});

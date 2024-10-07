@@ -7,6 +7,14 @@ require('dotenv').config();
 const app = express();
 app.use(express.json()); // Para que Express entienda JSON
 
+const cors = require('cors');
+
+// Configura CORS para aceptar solicitudes desde cualquier origen
+app.use(cors({
+  origin: '*',  // Permitir cualquier origen para pruebas, puedes especificar el puerto del frontend si es necesario
+}));
+
+
 // Serve the index.html file on GET requests to /
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
@@ -72,6 +80,20 @@ app.post('/donaciones', async (req, res) => {
   } catch (error) {
     console.error('Error al crear donación:', error);
     res.status(500).json({ error: 'Error al crear donación' });
+  }
+});
+
+app.post('/recibir-donaciones', async (req, res) => {
+  const { nombre, email, dni, causa, tipo_donacion, otro_tipo_donacion } = req.body;
+  try {
+    const result = await pool.query(
+      'INSERT INTO donaciones (nombre, email, dni, causa, tipo) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [nombre, email, dni, causa, tipo]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error('Error al recibir donación:', error);
+    res.status(500).json({ error: 'Error al recibir donación' });
   }
 });
 
