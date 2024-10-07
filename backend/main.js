@@ -7,6 +7,11 @@ require('dotenv').config();
 const app = express();
 app.use(express.json()); // Para que Express entienda JSON
 
+// Serve the index.html file on GET requests to /
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // Configurar conexión a PostgreSQL
 const pool = new Pool({
   host: process.env.DB_HOST,
