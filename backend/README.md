@@ -8,3 +8,9 @@ docker exec -it my-postgres psql -U myuser -d mydatabase
 
 docker stop my-postgres
 docker rm my-postgres
+
+# Levantar la API
+
+npm install 
+
+node .
