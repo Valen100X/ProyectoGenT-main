@@ -49,9 +49,6 @@ nav a {
     width: 40px;
 }
 
-main {
-    height: 90vh;
-}
 .section_informacion {
     width: 70%;
     margin: auto;
@@ -83,10 +80,11 @@ span {
 
 footer {
     width: 90%;
-    margin: auto;
+    margin: 40px auto 20px auto;
     font-size: 0.9rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .redes_sociales {

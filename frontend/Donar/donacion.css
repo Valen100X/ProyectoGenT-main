@@ -49,10 +49,6 @@ nav a {
     width: 40px;
 }
 
-main {
-    height: 90vh;
-}
-
 h1 {
     font-size: 2.2rem;
     text-align: center;
@@ -148,10 +144,11 @@ form {
 
 footer {
     width: 90%;
-    margin: auto;
+    margin: 40px auto 20px auto;
     font-size: 0.9rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .redes_sociales {
