@@ -1,61 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>API Documentation</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-        }
-        h1, h2, h3, h4 {
-            color: #333;
-        }
-        code {
-            background: #f4f4f4;
-            padding: 2px 4px;
-            border-radius: 4px;
-        }
-        pre {
-            background: #f4f4f4;
-            padding: 10px;
-            border-radius: 4px;
-            overflow: auto;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 20px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: #333;
+      }
+      code {
+        background: #f4f4f4;
+        padding: 2px 4px;
+        border-radius: 4px;
+      }
+      pre {
+        background: #f4f4f4;
+        padding: 10px;
+        border-radius: 4px;
+        overflow: auto;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <h1>API Documentation</h1>
 
-<h1>API Documentation</h1>
+    <h2>Overview</h2>
+    <p>
+      This API provides endpoints to manage donations using a PostgreSQL
+      database. It supports creating new donations, retrieving all donations,
+      and fetching individual donations by their ID.
+    </p>
 
-<h2>Overview</h2>
-<p>This API provides endpoints to manage donations using a PostgreSQL database. It supports creating new donations, retrieving all donations, and fetching individual donations by their ID.</p>
+    <h2>Base URL</h2>
+    <pre><code>http://localhost:3000</code></pre>
 
-<h2>Base URL</h2>
-<pre><code>http://localhost:3000</code></pre>
+    <h2>Endpoints</h2>
 
-<h2>Endpoints</h2>
-
-<h3>1. Get All Donations</h3>
-<ul>
-    <li><strong>Endpoint:</strong> <code>/donaciones</code></li>
-    <li><strong>Method:</strong> <code>GET</code></li>
-    <li><strong>Description:</strong> Retrieve a list of all donations.</li>
-    <li><strong>Response:</strong>
+    <h3>1. Get All Donations</h3>
+    <ul>
+      <li><strong>Endpoint:</strong> <code>/donaciones</code></li>
+      <li><strong>Method:</strong> <code>GET</code></li>
+      <li><strong>Description:</strong> Retrieve a list of all donations.</li>
+      <li>
+        <strong>Response:</strong>
         <ul>
-            <li><code>200 OK</code>: Returns an array of donation objects.</li>
-            <li><code>500 Internal Server Error</code>: Returns an error message if there is an issue fetching the donations.</li>
+          <li><code>200 OK</code>: Returns an array of donation objects.</li>
+          <li>
+            <code>500 Internal Server Error</code>: Returns an error message if
+            there is an issue fetching the donations.
+          </li>
         </ul>
-    </li>
-</ul>
+      </li>
+    </ul>
 
-<h4>Example Request</h4>
-<pre><code>GET /donaciones</code></pre>
+    <h4>Example Request</h4>
+    <pre><code>GET /donaciones</code></pre>
 
-<h4>Example Response</h4>
-<pre><code>
+    <h4>Example Response</h4>
+    <pre><code>
 [
   {
     "id": 1,
@@ -69,30 +79,40 @@
 ]
 </code></pre>
 
-<h3>2. Get Donation by ID</h3>
-<ul>
-    <li><strong>Endpoint:</strong> <code>/donaciones/:id</code></li>
-    <li><strong>Method:</strong> <code>GET</code></li>
-    <li><strong>Description:</strong> Retrieve a specific donation by its ID.</li>
-    <li><strong>Parameters:</strong>
+    <h3>2. Get Donation by ID</h3>
+    <ul>
+      <li><strong>Endpoint:</strong> <code>/donaciones/:id</code></li>
+      <li><strong>Method:</strong> <code>GET</code></li>
+      <li>
+        <strong>Description:</strong> Retrieve a specific donation by its ID.
+      </li>
+      <li>
+        <strong>Parameters:</strong>
         <ul>
-            <li><code>id</code>: The ID of the donation to retrieve.</li>
+          <li><code>id</code>: The ID of the donation to retrieve.</li>
         </ul>
-    </li>
-    <li><strong>Response:</strong>
+      </li>
+      <li>
+        <strong>Response:</strong>
         <ul>
-            <li><code>200 OK</code>: Returns the donation object.</li>
-            <li><code>404 Not Found</code>: Returns an error message if the donation is not found.</li>
-            <li><code>500 Internal Server Error</code>: Returns an error message if there is an issue fetching the donation.</li>
+          <li><code>200 OK</code>: Returns the donation object.</li>
+          <li>
+            <code>404 Not Found</code>: Returns an error message if the donation
+            is not found.
+          </li>
+          <li>
+            <code>500 Internal Server Error</code>: Returns an error message if
+            there is an issue fetching the donation.
+          </li>
         </ul>
-    </li>
-</ul>
+      </li>
+    </ul>
 
-<h4>Example Request</h4>
-<pre><code>GET /donaciones/1</code></pre>
+    <h4>Example Request</h4>
+    <pre><code>GET /donaciones/1</code></pre>
 
-<h4>Example Response</h4>
-<pre><code>
+    <h4>Example Response</h4>
+    <pre><code>
 {
   "id": 1,
   "nombre": "John Doe",
@@ -103,30 +123,39 @@
 }
 </code></pre>
 
-<h3>3. Create a New Donation</h3>
-<ul>
-    <li><strong>Endpoint:</strong> <code>/donaciones</code></li>
-    <li><strong>Method:</strong> <code>POST</code></li>
-    <li><strong>Description:</strong> Create a new donation.</li>
-    <li><strong>Request Body:</strong>
+    <h3>3. Create a New Donation</h3>
+    <ul>
+      <li><strong>Endpoint:</strong> <code>/donaciones</code></li>
+      <li><strong>Method:</strong> <code>POST</code></li>
+      <li><strong>Description:</strong> Create a new donation.</li>
+      <li>
+        <strong>Request Body:</strong>
         <ul>
-            <li><code>nombre</code>: Name of the donor (string, required).</li>
-            <li><code>email</code>: Email of the donor (string, required).</li>
-            <li><code>dni</code>: DNI of the donor (string, required).</li>
-            <li><code>causa</code>: Cause for the donation (string, required).</li>
-            <li><code>tipo</code>: Type of donation (string, required).</li>
+          <li><code>nombre</code>: Name of the donor (string, required).</li>
+          <li><code>email</code>: Email of the donor (string, required).</li>
+          <li><code>dni</code>: DNI of the donor (string, required).</li>
+          <li>
+            <code>causa</code>: Cause for the donation (string, required).
+          </li>
+          <li><code>tipo</code>: Type of donation (string, required).</li>
         </ul>
-    </li>
-    <li><strong>Response:</strong>
+      </li>
+      <li>
+        <strong>Response:</strong>
         <ul>
-            <li><code>201 Created</code>: Returns the created donation object.</li>
-            <li><code>500 Internal Server Error</code>: Returns an error message if there is an issue creating the donation.</li>
+          <li>
+            <code>201 Created</code>: Returns the created donation object.
+          </li>
+          <li>
+            <code>500 Internal Server Error</code>: Returns an error message if
+            there is an issue creating the donation.
+          </li>
         </ul>
-    </li>
-</ul>
+      </li>
+    </ul>
 
-<h4>Example Request</h4>
-<pre><code>
+    <h4>Example Request</h4>
+    <pre><code>
 POST /donaciones
 {
   "nombre": "Jane Doe",
@@ -137,8 +166,8 @@ POST /donaciones
 }
 </code></pre>
 
-<h4>Example Response</h4>
-<pre><code>
+    <h4>Example Response</h4>
+    <pre><code>
 {
   "id": 2,
   "nombre": "Jane Doe",
@@ -149,21 +178,29 @@ POST /donaciones
 }
 </code></pre>
 
-<h2>Error Handling</h2>
-<p>In case of an error, the API will respond with a JSON object containing an error message. Example:</p>
-<pre><code>
+    <h2>Error Handling</h2>
+    <p>
+      In case of an error, the API will respond with a JSON object containing an
+      error message. Example:
+    </p>
+    <pre><code>
 {
   "error": "Error al obtener donaciones"
 }
 </code></pre>
 
-<h2>Setup Instructions</h2>
-<ol>
-    <li><strong>Install Dependencies:</strong>
+    <h2>Setup Instructions</h2>
+    <ol>
+      <li>
+        <strong>Install Dependencies:</strong>
         <pre><code>npm install express pg dotenv</code></pre>
-    </li>
-    <li><strong>Database Configuration:</strong>
-        <p>Ensure you have a PostgreSQL database set up and the following environment variables configured in a <code>.env</code> file:</p>
+      </li>
+      <li>
+        <strong>Database Configuration:</strong>
+        <p>
+          Ensure you have a PostgreSQL database set up and the following
+          environment variables configured in a <code>.env</code> file:
+        </p>
         <pre><code>
 DB_HOST=your_database_host
 DB_USER=your_database_user
@@ -171,20 +208,32 @@ DB_PASSWORD=your_database_password
 DB_NAME=your_database_name
 DB_PORT=your_database_port
         </code></pre>
-    </li>
-    <li><strong>Start the Server:</strong>
+      </li>
+      <li>
+        <strong>Start the Server:</strong>
         <pre><code>node your_file_name.js</code></pre>
-    </li>
-    <li>Access the API at <pre><code>http://localhost:3000</code></pre>.</li>
-</ol>
+      </li>
+      <li>
+        Access the API at
+        <pre><code>http://localhost:3000</code></pre>
+        .
+      </li>
+    </ol>
 
-<h2>Notes</h2>
-<ul>
-    <li>The database schema is loaded from <code>schema.sql</code> when the server starts. Make sure this file is correctly configured to create the <code>donaciones</code> table.</li>
-    <li>Ensure your PostgreSQL server is running and accessible.</li>
-</ul>
+    <h2>Notes</h2>
+    <ul>
+      <li>
+        The database schema is loaded from <code>schema.sql</code> when the
+        server starts. Make sure this file is correctly configured to create the
+        <code>donaciones</code> table.
+      </li>
+      <li>Ensure your PostgreSQL server is running and accessible.</li>
+    </ul>
 
-<p>This documentation provides a complete overview of the API's capabilities. For any further questions or issues, please consult the code or reach out to the development team.</p>
-
-</body>
+    <p>
+      This documentation provides a complete overview of the API's capabilities.
+      For any further questions or issues, please consult the code or reach out
+      to the development team.
+    </p>
+  </body>
 </html>
