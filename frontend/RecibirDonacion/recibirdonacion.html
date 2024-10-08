@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,7 @@
     <title>Recibir Donaciones</title>
     <link rel="stylesheet" href="recibirdonacion.css">
     <script src="https://kit.fontawesome.com/8ca6fcbba1.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -17,67 +18,64 @@
                 <h2>AccessPrint</h2>
             </a>
             <nav>
-                <a href="../QuienesSomos/quienes-somos.html">¿Quiénes somos?</a>
-                <a href="../PreguntasFrecuentes/preguntas-frecuentes.html">Preguntas frecuentes</a>
+                <a href="../QuienesSomos/quienes-somos.html">¿Quines somos?</a>
+                <a href="../Preguntas Frecuentes/preguntas-frecuentes.html">Preguntas frecuentes</a>
             </nav>
         </header>
-
         <section class="formulario">
             <h1>Formulario para recibir donación</h1>
-            <form id="receiveDonationForm">
-
+            <form id="donationForm" method="POST">
                 <div class="coolinput">
-                    <label for="nombre" class="text">Nombre completo:</label>
-                    <input type="text" placeholder="Escriba aquí..." name="nombre" id="nombre" class="input">
+                  <label for="nombre" class="text">Nombre completo:</label>
+                  <input type="text" name="nombre" placeholder="Escriba aqui..." class="input">
                 </div>
-
+                
                 <div class="coolinput">
-                    <label for="email" class="text">Email:</label>
-                    <input type="text" placeholder="Escriba aquí..." name="email" id="email" class="input">
+                  <label for="email" class="text">Email:</label>
+                  <input type="text" name="email" placeholder="Escriba aqui..." class="input">
                 </div>
-
+                
                 <div class="coolinput">
-                    <label for="dni" class="text">DNI:</label>
-                    <input type="text" placeholder="Escriba aquí..." name="dni" id="dni" class="input">
+                  <label for="dni" class="text">DNI:</label>
+                  <input type="text" name="dni" placeholder="Escriba aqui..." class="input">
                 </div>
-
+                
                 <div class="coolinput">
-                    <label for="causa" class="text">Causa por la cual necesitas la donación:</label>
-                    <input type="text" placeholder="Escriba aquí..." name="causa" id="causa" class="input">
+                  <label for="causa" class="text">Causa por la cual deseas donar:</label>
+                  <input type="text" name="causa" placeholder="Escriba aqui..." class="input">
                 </div>
-
+                
                 <h2 class="sec">Seleccione el tipo de donación:</h2>
                 <div class="nombre">
-
-                    <div class="container">
-                        <label>
-                            <input type="radio" name="tipo_donacion" value="ropa">
-                            <span>Ropa</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="tipo_donacion" value="alimentos">
-                            <span>Alimentos no perecederos</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="tipo_donacion" value="dinero">
-                            <span>Dinero</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="tipo_donacion" value="otros" id="otros-radio">
-                            <span>Otros</span>
-                        </label>
-                    </div>
-
-                    <div class="coolinput" id="other-input" style="display:none;">
-                        <input type="text" placeholder="Especifica aquí..." name="otro_tipo_donacion" id="otro_tipo_donacion" class="input">
-                    </div>
+                  <div class="container">
+                    <label>
+                      <input type="radio" name="radio" value="ropa">
+                      <span>Ropa</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="radio" value="alimentos">
+                      <span>Alimentos no perecederos</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="radio" value="dinero">
+                      <span>Dinero</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="radio" value="otros" id="otros-radio">
+                      <span>Otros</span>
+                    </label>
+                  </div>
+                  <div class="coolinput" id="other-input">
+                    <input type="text" name="otro_tipo_donacion" placeholder="Especifica aqui..." class="input">
+                  </div>
                 </div>
-
+                
                 <button type="submit">Enviar</button>
-            </form>
+              </form>
+              
         </section>
+        
     </main>
-
     <footer>
         <div>
             <p>&copy; 2024 AccessPrint. Todos los derechos reservados.</p>
@@ -89,8 +87,42 @@
             <a href=""><i class="fa-brands fa-square-x-twitter"></i></a>
         </div>
     </footer>
-
     <script src="recibirdonacion.js"></script>
+    <script>
+        document.getElementById("donationForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        // Selecciona los elementos del formulario
+        const nombre = document.querySelector('input[name="nombre"]');
+        const email = document.querySelector('input[name="email"]');
+        const dni = document.querySelector('input[name="dni"]');
+        const causa = document.querySelector('input[name="causa"]');
+        const tipo_donacion = document.querySelector('input[name="radio"]:checked');
+        const otro_tipo_donacion = document.querySelector('input[name="otro_tipo_donacion"]');
+
+        // Verifica si los elementos existen antes de acceder a su valor
+        const formData = {
+            form: "formulario2",
+            nombre: nombre ? nombre.value : '',
+            email: email ? email.value : '',
+            dni: dni ? dni.value : '',
+            causa: causa ? causa.value : '',
+            tipo_donacion: tipo_donacion ? tipo_donacion.value : '', // Verifica que haya un radio seleccionado
+            otro_tipo_donacion: otro_tipo_donacion ? otro_tipo_donacion.value : '' // Si el campo es opcional
+        };
+
+        // Envia los datos a tu Google Apps Script
+        fetch("https://script.google.com/a/macros/lasalleflorida.edu.ar/s/AKfycbxr5SFY2K1E_bifNlkm8v-ZqkNXKiHULtxVIZuzp_jkOTji21Rd3yDg2T7mqvwS600o/exec", {
+            method: "POST",
+            body: JSON.stringify(formData),
+            headers: { "Content-Type": "application/json" }
+        })
+        .then(response => response.json())
+        .then(data => alert("Formulario enviado con éxito"))
+        .catch(error => console.error("Error:", error));
+        });
+
+      </script>
 </body>
 
 </html>

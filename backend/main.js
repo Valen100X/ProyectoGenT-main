@@ -14,7 +14,6 @@ app.use(cors({
   origin: '*',  // Permitir cualquier origen para pruebas, puedes especificar el puerto del frontend si es necesario
 }));
 
-
 // Serve the index.html file on GET requests to /
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
@@ -53,6 +52,30 @@ app.get('/donaciones', async (req, res) => {
   }
 });
 
+app.get('/recibirdonacion/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await pool.query('SELECT * FROM recibirdonacion WHERE id = $1', [id]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Donación no encontrada' });
+    }
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error('Error al obtener la donación:', error);
+    res.status(500).json({ error: 'Error al obtener la donación' });
+  }
+});
+
+app.get('/recibirdonacion', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM recibirdonacion');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error al obtener donaciones:', error);
+    res.status(500).json({ error: 'Error al obtener donaciones' });
+  }
+});
+
 // Obtener una donación por id
 app.get('/donaciones/:id', async (req, res) => {
   const { id } = req.params;
@@ -77,23 +100,31 @@ app.post('/donaciones', async (req, res) => {
       [nombre, email, dni, causa, tipo]
     );
     res.status(201).json(result.rows[0]);
+  } catch (error) {postpo
+    console.error('Error al crear donación:', error);
+    res.status(500).json({ error: 'Error al crear donación' });
+  }
+});
+
+app.post('/recibirdonacion', async (req, res) => {
+  const { nombre, email, dni, causa, tipo } = req.body;
+  try {
+    const result = await pool.query(
+      'INSERT INTO recibirdonacion (nombre, email, dni, causa, tipo) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [nombre, email, dni, causa, tipo]
+    );
+    res.status(201).json(result.rows[0]);
   } catch (error) {
     console.error('Error al crear donación:', error);
     res.status(500).json({ error: 'Error al crear donación' });
   }
 });
 
-app.post('/recibir-donaciones', async (req, res) => {
-  const { nombre, email, dni, causa, tipo_donacion, otro_tipo_donacion } = req.body;
-  try {
-    const result = await pool.query(
-      'INSERT INTO donaciones (nombre, email, dni, causa, tipo) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [nombre, email, dni, causa, tipo]
-    );
-    res.status(201).json(result.rows[0]);
-  } catch (error) {
-    console.error('Error al recibir donación:', error);
-    res.status(500).json({ error: 'Error al recibir donación' });
+pool.query('SELECT NOW()', (err, res) => {
+  if (err) {
+    console.error('Error de conexión a PostgreSQL:', err);
+  } else {
+    console.log('Conexión exitosa:', res.rows);
   }
 });
 
@@ -102,3 +133,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
