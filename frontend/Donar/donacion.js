@@ -34,6 +34,8 @@ document.getElementById("donationForm").addEventListener("submit", function(e) {
     // Agregar un console.log para verificar los datos antes de enviarlos
     console.log("Datos a enviar:", formData);
 
+
+    fetch
     // Envia los datos a tu API en el servidor local
     fetch("http://localhost:3000/donaciones", { // Cambié la URL a tu API local
         method: "POST",

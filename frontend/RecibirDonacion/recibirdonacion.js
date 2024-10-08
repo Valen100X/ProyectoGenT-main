@@ -17,7 +17,7 @@ document.getElementById("donationForm").addEventListener("submit", function(e) {
     const email = document.querySelector('input[name="email"]');
     const dni = document.querySelector('input[name="dni"]');
     const causa = document.querySelector('input[name="causa"]');
-    const tipo_donacion = document.querySelector('input[name="tipo_donacion"]:checked');
+    const tipo_donacion = document.querySelector('input[name="radio"]:checked');
     const otro_tipo_donacion = document.querySelector('input[name="otro_tipo_donacion"]');
 
     // Verifica si los elementos existen antes de acceder a su valor

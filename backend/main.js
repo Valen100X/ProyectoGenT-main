@@ -52,6 +52,40 @@ app.get('/donaciones', async (req, res) => {
   }
 });
 
+app.delete('/donaciones/:id', async (req,res) =>{
+  const {id } = req.params;
+
+  try {
+    const result = await pool.query('DELETE FROM donaciones WHERE id=$1', [id])
+
+    if(result){
+      res.status(200).json({message: "Se ha eliminado correctamente"});
+    }
+  } catch (error) {
+
+    console.error('Error al obtener la donación:', error);
+    res.status(500).json({ error: 'Error al obtener la donación' });
+    
+  }
+})
+
+app.delete('/recibirdonacion/:id', async (req,res) =>{
+  const {id } = req.params;
+
+  try {
+    const result = await pool.query('DELETE FROM recibirdonacion WHERE id=$1', [id])
+
+    if(result){
+      res.status(200).json({message: "Se ha eliminado correctamente"});
+    }
+  } catch (error) {
+
+    console.error('Error al obtener la donación:', error);
+    res.status(500).json({ error: 'Error al obtener la donación' });
+    
+  }
+})
+
 app.get('/recibirdonacion/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -93,11 +127,13 @@ app.get('/donaciones/:id', async (req, res) => {
 
 // Crear una nueva donación
 app.post('/donaciones', async (req, res) => {
-  const { nombre, email, dni, causa, tipo } = req.body;
+  const { nombre, email, dni, causa, tipo_donacion } = req.body;
+
+  console.log(req.body)
   try {
     const result = await pool.query(
       'INSERT INTO donaciones (nombre, email, dni, causa, tipo) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [nombre, email, dni, causa, tipo]
+      [nombre, email, dni, causa, tipo_donacion,]
     );
     res.status(201).json(result.rows[0]);
   } catch (error) {postpo
@@ -107,14 +143,16 @@ app.post('/donaciones', async (req, res) => {
 });
 
 app.post('/recibirdonacion', async (req, res) => {
-  const { nombre, email, dni, causa, tipo } = req.body;
+  const { nombre, email, dni, causa, tipo_donacion } = req.body;
+
+  console.log(req.body)
   try {
     const result = await pool.query(
       'INSERT INTO recibirdonacion (nombre, email, dni, causa, tipo) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [nombre, email, dni, causa, tipo]
+      [nombre, email, dni, causa, tipo_donacion,]
     );
     res.status(201).json(result.rows[0]);
-  } catch (error) {
+  } catch (error) {postpo
     console.error('Error al crear donación:', error);
     res.status(500).json({ error: 'Error al crear donación' });
   }
