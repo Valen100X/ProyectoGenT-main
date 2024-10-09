@@ -1,4 +1,4 @@
-document.querySelectorAll('input[name="tipo_donacion"]').forEach((radio) => {
+document.querySelectorAll('input[name="radio"]').forEach((radio) => {
   radio.addEventListener("change", function () {
     const otherInputDiv = document.getElementById("other-input");
     if (this.value === "otros" && this.checked) {
@@ -54,8 +54,7 @@ document
       });
   });
 
-document
-  .getElementById("receiveDonationForm")
+document.getElementById("receiveDonationForm")
   .addEventListener("submit", function (e) {
     e.preventDefault();
 
