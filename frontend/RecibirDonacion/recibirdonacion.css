@@ -29,17 +29,17 @@ body {
   width: 40px;
   margin: auto;
   border-radius: 50%;
-  box-shadow: inset 0 0 0 #0a7cbe;
+  box-shadow: inset 0 0 0 #39abcd;
   animation: load 2s linear infinite alternate;
 }
 
 @keyframes load {
   0% {
-    box-shadow: inset -20px 40px 0 #0a7cbe;
+    box-shadow: inset -20px 40px 0 #39abcd;
   }
 
   100% {
-    box-shadow: inset 20px -40px 0 #0a7cbe;
+    box-shadow: inset 20px -40px 0 #39abcd;
   }
 }
 header {
