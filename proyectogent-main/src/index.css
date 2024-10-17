@@ -1,0 +1,336 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nerko+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #eee;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 96%;
+  margin: 15px auto;
+}
+
+header h2 {
+  font-size: 1.3rem;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+nav a {
+  color: #39abcd;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #39abcd;
+}
+
+.icono img {
+  width: 40px;
+}
+
+.section_titulo {
+  width: 90%;
+  margin: auto;
+  margin-top: 15vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section_titulo h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: #39abcd;
+  font-family: "Nerko One", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.subtitulo {
+  font-size: 1.4rem;
+  text-align: justify;
+}
+
+.botones {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.section_titulo a {
+  color: #fff;
+  text-decoration: none;
+  background-color: #39abcd;
+  border-radius: 20px;
+  padding: 15px 20px;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2rem;
+}
+
+.letra_chica {
+  margin-top: 20px;
+  font-size: 1rem;
+  font-style: italic;
+  text-align: center;
+}
+
+footer {
+  width: 90%;
+  margin: 40px auto 20px auto;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.redes_sociales {
+  width: 30%;
+  text-align: right;
+}
+
+.redes_sociales a {
+  padding: 0px 0 0 20px;
+  font-size: 1.7rem;
+  color: #39abcd;
+}
+
+/* Media Queries */
+
+/* Pantallas medianas (tabletas en modo apaisado) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Aquí puedes agregar tus estilos para pantallas entre 768px y 1023px (tabletas en modo apaisado) */
+  .section_titulo h1 {
+    font-size: 2rem;
+  }
+  .subtitulo {
+    font-size: 1rem;
+  }
+  .letra_chica {
+    font-size: 0.8rem;
+  }
+  .section_titulo a {
+    font-size: 1rem;
+  }
+  footer {
+    font-size: 0.7rem;
+  }
+  
+  .redes_sociales a {
+    font-size: 1.3rem;
+  }
+}
+
+/* Pantallas pequeñas (tabletas en modo vertical) */
+@media (min-width: 600px) and (max-width: 767px) {
+  /* Aquí puedes agregar tus estilos para pantallas entre 600px y 767px (tabletas en modo vertical) */
+  .section_titulo h1 {
+    font-size: 2rem;
+  }
+  .subtitulo {
+    font-size: 1rem;
+  }
+  .letra_chica {
+    font-size: 0.8rem;
+  }
+  .section_titulo a {
+    font-size: 1rem;
+  }
+  footer {
+    font-size: 0.7rem;
+  }
+  
+  .redes_sociales a {
+    font-size: 1.1rem;
+  }
+  .icono img {
+    width: 30px;
+  }
+  .nav a {
+    font-size: .9rem;
+  }
+}
+
+/* Pantallas muy pequeñas (móviles grandes) */
+@media (min-width: 480px) and (max-width: 599px) {
+  /* Aquí puedes agregar tus estilos para pantallas entre 480px y 599px (móviles grandes) */
+  .section_titulo h1 {
+    font-size: 2rem;
+  }
+  .subtitulo {
+    font-size: .8rem;
+  }
+  nav a {
+    font-size: .8rem;
+  }
+  .letra_chica {
+    font-size: 0.7rem;
+  }
+  .section_titulo a {
+    font-size: .8rem;
+  }
+  footer {
+    font-size: 0.65rem;
+  }
+  .redes_sociales a {
+    font-size: 1rem;
+  }
+  .icono img {
+    width: 25px;
+  }
+  .corazon img{
+    width: 150px;
+  }
+  header h2 {
+    font-size: .9rem;
+  }
+  nav {
+    gap: 10px;
+  }
+  footer {
+    width: 90%;
+    margin: 40px auto 10px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .redes_sociales {
+    width: 35%;
+    text-align: right;
+  }
+}
+
+/* Móviles (pantallas pequeñas) */
+@media (min-width: 380px) and  (max-width: 479px) {
+  /* Aquí puedes agregar tus estilos para pantallas entre 480px y 599px (móviles grandes) */
+  nav a {
+    font-size: .8rem;
+  }
+  .section_titulo h1 {
+    font-size: 1.5rem;
+  }
+  .subtitulo {
+    font-size: .75rem;
+  }
+  .letra_chica {
+    font-size: 0.6rem;
+  }
+  .section_titulo a {
+    font-size: .8rem;
+  }
+  footer {
+    font-size: 0.65rem;
+  }
+  .icono img {
+    width: 25px;
+  }
+  .corazon img{
+    width: 150px;
+  }
+  header h2 {
+    font-size: .9rem;
+  }
+  nav {
+    gap: 10px;
+  }
+  .botones a {
+    font-size: .7rem;
+    padding: 10px 15px;
+  }
+  footer {
+    width: 90%;
+    margin: 40px auto 10px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .redes_sociales {
+    width: 35%;
+    text-align: right;
+  }
+  .redes_sociales a {
+    font-size: 1rem;
+    padding: 0 5px;
+  }
+}
+
+@media (max-width: 430px) {
+  /* Aquí puedes agregar tus estilos para pantallas entre 480px y 599px (móviles grandes) */
+  nav a {
+    font-size: .7rem;
+  }
+  
+  header h2 {
+    font-size: .9rem;
+  }
+  nav {
+    gap: 10px;
+  }
+  
+  .icono img {
+    width: 20px;
+  }
+  .section_titulo h1 {
+    font-size: 1.5rem;
+  }
+  .subtitulo {
+    font-size: .75rem;
+  }
+  .letra_chica {
+    font-size: 0.6rem;
+  }
+  .section_titulo a {
+    font-size: .8rem;
+  }
+  .corazon img{
+    width: 150px;
+  }
+  .botones a {
+    font-size: .7rem;
+    padding: 10px 15px;
+  }
+  
+  footer {
+    font-size: 0.6rem;
+  }
+  footer {
+    width: 90%;
+    margin: 40px auto 10px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .redes_sociales {
+    width: 35%;
+    text-align: right;
+  }
+  .redes_sociales a {
+    font-size: 1rem;
+    padding: 0 5px;
+  }
+}
