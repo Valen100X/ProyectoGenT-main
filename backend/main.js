@@ -5,14 +5,14 @@ const path = require("path");
 require("dotenv").config();
 
 const app = express();
-app.use(express.json()); // Para que Express entienda JSON
+app.use(express.json()); // To enable Express to understand JSON
 
 const cors = require("cors");
 
-// Configura CORS para aceptar solicitudes desde cualquier origen
+// Configure CORS to accept requests from any origin
 app.use(
   cors({
-    origin: "*", // Permitir cualquier origen para pruebas, puedes especificar el puerto del frontend si es necesario
+    origin: "*", // Allow any origin for testing; specify your frontend port if necessary
   })
 );
 
@@ -21,28 +21,61 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// Configurar conexión a PostgreSQL
-const pool = new Pool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
-});
+// Create a function to establish the connection with retry logic
+async function connectWithRetry() {
+  const pool = new Pool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
+  });
 
-// Cargar schema.sql al iniciar
+  let attempts = 0;
+  const maxAttempts = 20;
+  const retryDelay = 5000; // milliseconds
+
+  while (attempts < maxAttempts) {
+    try {
+      await pool.query("SELECT NOW()"); // Simple query to check connection
+      console.log("Connected to PostgreSQL successfully!");
+      return pool; // Return the pool if connection is successful
+    } catch (err) {
+      attempts++;
+      console.error(`Connection attempt ${attempts} failed:`, err);
+      if (attempts < maxAttempts) {
+        console.log(`Retrying in ${retryDelay / 1000} seconds...`);
+        await new Promise((resolve) => setTimeout(resolve, retryDelay));
+      } else {
+        console.error("Max connection attempts reached. Exiting...");
+        process.exit(1); // Exit if max attempts reached
+      }
+    }
+  }
+}
+
+// Load schema.sql on startup
 const schemaPath = path.join(__dirname, "schema.sql");
-fs.readFile(schemaPath, "utf8", (err, data) => {
-  if (err) {
-    console.error("Error al leer el archivo schema.sql:", err);
+const loadSchema = async (pool) => {
+  try {
+    const data = await fs.promises.readFile(schemaPath, "utf8");
+    await pool.query(data);
+    console.log("Schema created or verified successfully.");
+  } catch (err) {
+    console.error("Error reading schema.sql:", err);
     process.exit(1);
   }
-  pool
-    .query(data)
-    .then(() => console.log("Tabla creada o verificada correctamente."))
-    .catch((err) => console.error("Error al ejecutar schema.sql:", err));
-});
+};
 
+// Initialize database connection and load schema
+let pool;
+(async () => {
+  pool = await connectWithRetry();
+  await loadSchema(pool);
+})();
+
+// API routes
+// Get all donations
 // Rutas de la API
 // Obtener todas las donaciones
 app.get("/donaciones", async (req, res) => {
@@ -166,16 +199,8 @@ app.post("/recibirdonacion", async (req, res) => {
   }
 });
 
-pool.query("SELECT NOW()", (err, res) => {
-  if (err) {
-    console.error("Error de conexión a PostgreSQL:", err);
-  } else {
-    console.log("Conexión exitosa:", res.rows);
-  }
-});
-
-// Iniciar el servidor
+// Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
