@@ -5,3 +5,16 @@ Para correr la aplicion se debe ejecutar:
 docker compose up --build
 ```
 
+Si se quiere correr la aplicacion en el background para poder seguir usando la terminal o cerrando la terminal se puede correr asi:
+
+```bash
+docker compose up --build -d
+```
+
+Y para apagar la apliacion
+
+```bash
+docker compose down
+```
+
+IMPORTANTE: Todo esto se debe ejecutar en el root del proyect. 
