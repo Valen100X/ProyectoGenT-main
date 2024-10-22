@@ -18,8 +18,7 @@ const DonationForm = () => {
     const { name, value } = e.target;
 
     if (name === 'tipo_donacion') {
-      setShowOtherInput(value === 'otros');
-      console.log(`El tipo de donación seleccionado es: ${value}`);
+      setShowOtherInput(value === 'otros'); // Mostrar input si "otros" está seleccionado
     }
 
     setFormData({
@@ -135,15 +134,22 @@ const DonationForm = () => {
             <input type="radio" name="tipo_donacion" value="otros" onChange={handleInputChange} checked={formData.tipo_donacion === 'otros'} />
             <span>Otros</span>
           </label>
+          {showOtherInput && (
+  <div className="coolinput">
+    <input 
+      type="text" 
+      name="otro_tipo_donacion" 
+      placeholder="Escriba aquí..." 
+      className="inputOther" // Cambiado aquí
+      value={formData.otro_tipo_donacion} 
+      onChange={handleInputChange} 
+    />
+  </div>
+)}
         </div>
-
-        {showOtherInput && (
-          <div className="coolinput" id="other-input">
-            <label htmlFor="otro_tipo_donacion" className="text">Especifica aquí:</label>
-            <input type="text" name="otro_tipo_donacion" placeholder="Especifica aquí..." className="input" value={formData.otro_tipo_donacion} onChange={handleInputChange} />
-          </div>
-        )}
       </div>
+
+      
 
       <button type="submit" disabled={isLoading}>
         {isLoading ? 'Cargando...' : 'Enviar'}
@@ -153,4 +159,3 @@ const DonationForm = () => {
 };
 
 export default DonationForm;
-  
