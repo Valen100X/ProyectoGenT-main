@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import RecibirDonacionesForm from './RecibirDonacionesForm'; // Ajusta la ruta según sea necesario
 import { Link } from 'react-router-dom';
 import './RecibirDonacion.css'; // Si tienes estilos específicos
 
@@ -13,18 +12,49 @@ function RecibirDonacion() {
     otro_tipo_donacion: '',
   });
 
+  const [isLoading, setIsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [showOtherInput, setShowOtherInput] = useState(false);
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    // Mostrar el campo de entrada "otro" si se selecciona "otros"
+    if (name === 'tipo_donacion') {
+      setShowOtherInput(value === 'otros');
+    }
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+  };
+
+  const handleDniInput = (e) => {
+    const { value } = e.target;
+    const cleanedValue = value.replace(/[^0-9]/g, ''); // Solo permite números
+
+    if (cleanedValue.length <= 8) {
+      setFormData({ ...formData, dni: cleanedValue });
+    }
+  };
+
+  const handleEmailInput = (e) => {
+    const { value } = e.target;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Patrón básico de email
+
+    if (!emailPattern.test(value)) {
+      e.target.setCustomValidity('Formato de correo electrónico no válido');
+    } else {
+      e.target.setCustomValidity('');
+    }
+
+    setFormData({ ...formData, email: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const selectedDonationType = formData.tipo_donacion || formData.otro_tipo_donacion;
+    setIsLoading(true);
 
     const dataToSend = {
       form: 'formulario2',
@@ -32,15 +62,18 @@ function RecibirDonacion() {
       email: formData.email,
       dni: formData.dni,
       causa: formData.causa,
-      tipo_donacion: selectedDonationType,
+      tipo_donacion:
+        formData.tipo_donacion === 'otros'
+          ? formData.otro_tipo_donacion
+          : formData.tipo_donacion,
     };
 
     fetch(
       'https://script.google.com/a/macros/lasalleflorida.edu.ar/s/AKfycbxr5SFY2K1E_bifNlkm8v-ZqkNXKiHULtxVIZuzp_jkOTji21Rd3yDg2T7mqvwS600o/exec',
       {
         method: 'POST',
-        body: JSON.stringify(dataToSend),
         headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dataToSend),
       }
     )
       .then((response) => response.json())
@@ -48,25 +81,38 @@ function RecibirDonacion() {
         alert('Formulario enviado con éxito');
         setSubmitted(true);
       })
-      .catch((error) => console.error('Error:', error));
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('Hubo un problema al enviar el formulario');
+      })
+      .finally(() => {
+        // Reiniciar formulario después del envío
+        setFormData({
+          nombre: '',
+          email: '',
+          dni: '',
+          causa: '',
+          tipo_donacion: '',
+          otro_tipo_donacion: '',
+        });
+        setShowOtherInput(false);
+        setIsLoading(false);
+      });
   };
 
   return (
     <div>
-      <div style={{ display: 'none' }} id="loadingMessage">
-        <div className="loader"></div>
-      </div>
       <main>
-      <header>
-        <Link to="/" className="icono"> 
-        <img src={require('../images/logo.png')} alt="AccessPrint logo" />
-          <h2>AccessPrint</h2>
-        </Link>
-        <nav>
-          <Link to="/QuienesSomos">¿Quiénes somos?</Link> 
-          <Link to="/PreguntasFrecuentes">Preguntas frecuentes</Link> 
-        </nav>
-      </header>
+        <header>
+          <Link to="/" className="icono">
+            <img src={require('../images/logo.png')} alt="AccessPrint logo" />
+            <h2>AccessPrint</h2>
+          </Link>
+          <nav>
+            <Link to="/QuienesSomos">¿Quiénes somos?</Link>
+            <Link to="/PreguntasFrecuentes">Preguntas frecuentes</Link>
+          </nav>
+        </header>
 
         <section className="formulario">
           <h1>Formulario para recibir donación</h1>
@@ -79,10 +125,11 @@ function RecibirDonacion() {
                 <input
                   type="text"
                   name="nombre"
-                  placeholder="Escriba aqui..."
+                  placeholder="Escriba aquí..."
                   className="input"
                   value={formData.nombre}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
 
@@ -93,10 +140,11 @@ function RecibirDonacion() {
                 <input
                   type="text"
                   name="email"
-                  placeholder="Escriba aqui..."
+                  placeholder="Escriba aquí..."
                   className="input"
                   value={formData.email}
-                  onChange={handleChange}
+                  onChange={handleEmailInput}
+                  required
                 />
               </div>
 
@@ -107,10 +155,11 @@ function RecibirDonacion() {
                 <input
                   type="text"
                   name="dni"
-                  placeholder="Escriba aqui..."
+                  placeholder="Escriba aquí..."
                   className="input"
                   value={formData.dni}
-                  onChange={handleChange}
+                  onChange={handleDniInput}
+                  required
                 />
               </div>
 
@@ -121,10 +170,11 @@ function RecibirDonacion() {
                 <input
                   type="text"
                   name="causa"
-                  placeholder="Escriba aqui..."
+                  placeholder="Escriba aquí..."
                   className="input"
                   value={formData.causa}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
 
@@ -137,7 +187,7 @@ function RecibirDonacion() {
                       name="tipo_donacion"
                       value="ropa"
                       checked={formData.tipo_donacion === 'ropa'}
-                      onChange={handleChange}
+                      onChange={handleInputChange}
                     />
                     <span>Ropa</span>
                   </label>
@@ -147,7 +197,7 @@ function RecibirDonacion() {
                       name="tipo_donacion"
                       value="alimentos"
                       checked={formData.tipo_donacion === 'alimentos'}
-                      onChange={handleChange}
+                      onChange={handleInputChange}
                     />
                     <span>Alimentos no perecederos</span>
                   </label>
@@ -157,7 +207,7 @@ function RecibirDonacion() {
                       name="tipo_donacion"
                       value="dinero"
                       checked={formData.tipo_donacion === 'dinero'}
-                      onChange={handleChange}
+                      onChange={handleInputChange}
                     />
                     <span>Dinero</span>
                   </label>
@@ -167,26 +217,28 @@ function RecibirDonacion() {
                       name="tipo_donacion"
                       value="otros"
                       checked={formData.tipo_donacion === 'otros'}
-                      onChange={handleChange}
+                      onChange={handleInputChange}
                     />
                     <span>Otros</span>
                   </label>
+                  {showOtherInput && (
+                    <div className="coolinput" id="other-input">
+                      <input
+                        type="text"
+                        name="otro_tipo_donacion"
+                        placeholder="Especifica aquí..."
+                        className="input"
+                        value={formData.otro_tipo_donacion}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                  )}
                 </div>
-                {formData.tipo_donacion === 'otros' && (
-                  <div className="coolinput" id="other-input">
-                    <input
-                      type="text"
-                      name="otro_tipo_donacion"
-                      placeholder="Especifica aqui..."
-                      className="input"
-                      value={formData.otro_tipo_donacion}
-                      onChange={handleChange}
-                    />
-                  </div>
-                )}
               </div>
 
-              <button type="submit">Enviar</button>
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? 'Cargando...' : 'Enviar'}
+              </button>
             </form>
           ) : (
             <div>

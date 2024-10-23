@@ -14,23 +14,25 @@ const RecibirDonacionesForm = () => {
   const [loading, setLoading] = useState(false);
   const [showOtherInput, setShowOtherInput] = useState(false);
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    console.log(`Nombre del campo: ${name}, Valor: ${value}`);
+    if (name === "tipo_donacion") {
+      setShowOtherInput(value === "otros"); // Mostrar input si "otros" está seleccionado
+    }
 
-    if (name === "dni") {
-      const sanitizedValue = value.replace(/[^0-9]/g, "").slice(0, 8);
-      setDonationData((prev) => ({ ...prev, [name]: sanitizedValue }));
-      console.log(`DNI sanitizado: ${sanitizedValue}`);
-    } else {
-      setDonationData((prev) => ({ ...prev, [name]: value }));
+    setDonationData({
+      ...donationData,
+      [name]: value,
+    });
+  };
 
-      if (name === "tipo_donacion") {
-        const shouldShowOtherInput = value === "otros";
-        setShowOtherInput(shouldShowOtherInput);
-        console.log(`Mostrar campo "otro": ${shouldShowOtherInput}`);
-      }
+  const handleDniInput = (e) => {
+    const { value } = e.target;
+    const cleanedValue = value.replace(/[^0-9]/g, ""); // Solo permite números
+
+    if (cleanedValue.length <= 8) {
+      setDonationData({ ...donationData, dni: cleanedValue });
     }
   };
 
@@ -38,11 +40,19 @@ const RecibirDonacionesForm = () => {
     e.preventDefault();
     setLoading(true);
 
-    console.log("Datos a enviar:", donationData);
+    const dataToSend = {
+      ...donationData,
+      tipo_donacion:
+        donationData.tipo_donacion === "otros"
+          ? donationData.otro_tipo_donacion
+          : donationData.tipo_donacion,
+    };
+
+    console.log("Datos a enviar:", dataToSend);
 
     fetch("http://localhost:3000/recibirdonacion", {
       method: "POST",
-      body: JSON.stringify(donationData),
+      body: JSON.stringify(dataToSend),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
@@ -84,9 +94,10 @@ const RecibirDonacionesForm = () => {
             type="text"
             name="nombre"
             value={donationData.nombre}
-            onChange={handleChange}
+            onChange={handleInputChange}
             placeholder="Escriba aqui..."
             className="input"
+            required
           />
         </div>
 
@@ -98,9 +109,10 @@ const RecibirDonacionesForm = () => {
             type="email"
             name="email"
             value={donationData.email}
-            onChange={handleChange}
+            onChange={handleInputChange}
             placeholder="Escriba aqui..."
             className="input"
+            required
           />
         </div>
 
@@ -112,10 +124,11 @@ const RecibirDonacionesForm = () => {
             type="text"
             name="dni"
             value={donationData.dni}
-            onChange={handleChange}
+            onChange={handleDniInput}
             placeholder="Escriba aqui..."
             className="input"
             maxLength="8"
+            required
           />
         </div>
 
@@ -127,9 +140,10 @@ const RecibirDonacionesForm = () => {
             type="text"
             name="causa"
             value={donationData.causa}
-            onChange={handleChange}
+            onChange={handleInputChange}
             placeholder="Escriba aqui..."
             className="input"
+            required
           />
         </div>
 
@@ -142,7 +156,7 @@ const RecibirDonacionesForm = () => {
                 name="tipo_donacion"
                 value="ropa"
                 checked={donationData.tipo_donacion === "ropa"}
-                onChange={handleChange}
+                onChange={handleInputChange}
               />
               <span>Ropa</span>
             </label>
@@ -152,7 +166,7 @@ const RecibirDonacionesForm = () => {
                 name="tipo_donacion"
                 value="alimentos"
                 checked={donationData.tipo_donacion === "alimentos"}
-                onChange={handleChange}
+                onChange={handleInputChange}
               />
               <span>Alimentos no perecederos</span>
             </label>
@@ -162,7 +176,7 @@ const RecibirDonacionesForm = () => {
                 name="tipo_donacion"
                 value="dinero"
                 checked={donationData.tipo_donacion === "dinero"}
-                onChange={handleChange}
+                onChange={handleInputChange}
               />
               <span>Dinero</span>
             </label>
@@ -172,9 +186,9 @@ const RecibirDonacionesForm = () => {
                 name="tipo_donacion"
                 value="otros"
                 checked={donationData.tipo_donacion === "otros"}
-                onChange={handleChange}
+                onChange={handleInputChange}
               />
-              <span>Otros</span>
+              <span>otros</span>
             </label>
           </div>
           {showOtherInput && (
@@ -183,7 +197,7 @@ const RecibirDonacionesForm = () => {
                 type="text"
                 name="otro_tipo_donacion"
                 value={donationData.otro_tipo_donacion}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 placeholder="Especifica aqui..."
                 className="input"
               />

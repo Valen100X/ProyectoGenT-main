@@ -140,7 +140,7 @@ const DonationForm = () => {
       type="text" 
       name="otro_tipo_donacion" 
       placeholder="Escriba aquí..." 
-      className="inputOther" // Cambiado aquí
+      className="inputOther" 
       value={formData.otro_tipo_donacion} 
       onChange={handleInputChange} 
     />

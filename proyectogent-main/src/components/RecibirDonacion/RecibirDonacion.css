@@ -261,10 +261,25 @@ button:hover {
 }
 
 #other-input {
-  display: none;
+/*display: none;*/
   margin-top: 10px;
 }
 #other-input input {
   width: 100%;
   height: 40px;
 }
+.inputOther {
+  padding: 11px 10px;
+  font-size: 0.75rem;
+  border: 2px #39abcd solid;
+  border-radius: 5px;
+  background: transparent;
+  font-size: 0.85rem;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 500;
+}
+
+.inputOther:focus {
+  outline: none;
+}
+
