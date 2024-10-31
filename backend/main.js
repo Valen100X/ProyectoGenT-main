@@ -21,6 +21,8 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
+
+
 // Create a function to establish the connection with retry logic
 async function connectWithRetry() {
   const pool = new Pool({
@@ -102,10 +104,9 @@ app.delete("/donaciones/:id", async (req, res) => {
   }
 });
 
-// Remaining routes...
-
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log("ENV!" + process.env.DB_HOST)
+  console.log(`Server at http://backend:${PORT}`);
 });
