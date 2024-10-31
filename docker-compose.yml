@@ -3,10 +3,10 @@ version: '3.8'
 services:
   frontend:
     build:
-      context: ./frontend
+      context: ./proyectogent-main
     container_name: frontend
     ports:
-      - "80:80"  # Frontend exposed on port 80
+      - "80:80"
     depends_on:
       - backend
     networks:
@@ -17,7 +17,7 @@ services:
       context: ./backend
     container_name: backend
     ports:
-      - "3000:3000"  # Backend exposed on port 3000
+      - "3000:3000"
     depends_on:
       - db
     networks:
@@ -28,17 +28,17 @@ services:
       context: ./DB
     container_name: postgres-db
     env_file:
-      - ./DB/.env  # Assuming .env is in the DB folder
+      - ./DB/.env
     ports:
-      - "5432:5432"  # PostgreSQL exposed on port 5432
+      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
       - app-network
 
 volumes:
-  pgdata:  # Named volume for database persistence
+  pgdata:
 
 networks:
-  app-network:  # Custom network for containers
+  app-network:
     driver: bridge
