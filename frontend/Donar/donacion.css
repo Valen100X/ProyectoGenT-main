@@ -269,3 +269,237 @@ button:hover {
   width: 100%;
   height: 40px;
 }
+
+/* Media Queries */
+
+/* Pantallas medianas (tabletas en modo apaisado) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Aquí puedes agregar tus estilos para pantallas entre 768px y 1023px (tabletas en modo apaisado) */
+  .formulario h1 {
+    font-size: 2rem;
+  }
+  .subtitulo {
+    font-size: 1rem;
+  }
+  .letra_chica {
+    font-size: 0.8rem;
+  }
+  .formulario a {
+    font-size: 1rem;
+  }
+  footer {
+    font-size: 0.7rem;
+  }
+  
+  .redes_sociales a {
+    font-size: 1.3rem;
+  }
+  form{
+    width: 60%;
+  }
+}
+
+/* Pantallas pequeñas (tabletas en modo vertical) */
+@media (min-width: 600px) and (max-width: 767px) {
+  /* Aquí puedes agregar tus estilos para pantallas entre 600px y 767px (tabletas en modo vertical) */
+  .formulario h1 {
+    font-size: 2rem;
+  }
+  .subtitulo {
+    font-size: 1rem;
+  }
+  .letra_chica {
+    font-size: 0.8rem;
+  }
+  .formulario a {
+    font-size: 1rem;
+  }
+  footer {
+    font-size: 0.7rem;
+  }
+  
+  .redes_sociales a {
+    font-size: 1.1rem;
+  }
+  .icono img {
+    width: 30px;
+  }
+  .nav a {
+    font-size: .9rem;
+  }
+  
+  form{
+    width: 60%;
+  }
+}
+
+/* Pantallas muy pequeñas (móviles grandes) */
+@media (min-width: 480px) and (max-width: 599px) {
+  /* Aquí puedes agregar tus estilos para pantallas entre 480px y 599px (móviles grandes) */
+  .formulario h1 {
+    font-size: 2rem;
+  }
+  .subtitulo {
+    font-size: .8rem;
+  }
+  nav a {
+    font-size: .8rem;
+  }
+  .letra_chica {
+    font-size: 0.7rem;
+  }
+  .formulario a {
+    font-size: .8rem;
+  }
+  footer {
+    font-size: 0.65rem;
+  }
+  .redes_sociales a {
+    font-size: 1rem;
+  }
+  .icono img {
+    width: 25px;
+  }
+  .corazon img{
+    width: 150px;
+  }
+  header h2 {
+    font-size: .9rem;
+  }
+  nav {
+    gap: 10px;
+  }
+  footer {
+    width: 90%;
+    margin: 40px auto 10px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .redes_sociales {
+    width: 35%;
+    text-align: right;
+  }
+  
+  form{
+    width: 80%;
+  }
+}
+
+/* Móviles (pantallas pequeñas) */
+@media (min-width: 380px) and  (max-width: 479px) {
+  /* Aquí puedes agregar tus estilos para pantallas entre 480px y 599px (móviles grandes) */
+  nav a {
+    font-size: .8rem;
+  }
+  .formulario h1 {
+    font-size: 1.5rem;
+  }
+  .subtitulo {
+    font-size: .75rem;
+  }
+  .letra_chica {
+    font-size: 0.6rem;
+  }
+  .formulario a {
+    font-size: .8rem;
+  }
+  footer {
+    font-size: 0.65rem;
+  }
+  .icono img {
+    width: 25px;
+  }
+  .corazon img{
+    width: 150px;
+  }
+  header h2 {
+    font-size: .9rem;
+  }
+  nav {
+    gap: 10px;
+  }
+  .botones a {
+    font-size: .7rem;
+    padding: 10px 15px;
+  }
+  footer {
+    width: 90%;
+    margin: 40px auto 10px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .redes_sociales {
+    width: 35%;
+    text-align: right;
+  }
+  .redes_sociales a {
+    font-size: 1rem;
+    padding: 0 5px;
+  }
+  
+  form{
+    width: 80%;
+  }
+}
+
+@media (max-width: 430px) {
+  /* Aquí puedes agregar tus estilos para pantallas entre 480px y 599px (móviles grandes) */
+  nav a {
+    font-size: .7rem;
+  }
+  
+  header h2 {
+    font-size: .9rem;
+  }
+  nav {
+    gap: 10px;
+  }
+  
+  .icono img {
+    width: 20px;
+  }
+  .formulario h1 {
+    font-size: 1.5rem;
+  }
+  .subtitulo {
+    font-size: .75rem;
+  }
+  .letra_chica {
+    font-size: 0.6rem;
+  }
+  .formulario a {
+    font-size: .8rem;
+  }
+  .corazon img{
+    width: 150px;
+  }
+  .botones a {
+    font-size: .7rem;
+    padding: 10px 15px;
+  }
+  
+  footer {
+    font-size: 0.6rem;
+  }
+  footer {
+    width: 90%;
+    margin: 40px auto 10px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .redes_sociales {
+    width: 35%;
+    text-align: right;
+  }
+  .redes_sociales a {
+    font-size: 1rem;
+    padding: 0 5px;
+  }
+  
+  form{
+    width: 80%;
+  }
+}
